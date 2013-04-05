@@ -10,6 +10,7 @@ Source0:	%{rbname}-%{version}.gem
 # Source0-md5:	5f35141b89be7da3b279b65ea0f3c0c2
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
+BuildRequires:	ruby-devel
 BuildRequires:	setup.rb
 Requires:	ruby-activesupport
 Requires:	ruby-json
