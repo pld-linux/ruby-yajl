@@ -2,7 +2,7 @@
 Summary:	Ruby C bindings to the excellent Yajl JSON stream-based parser library
 Name:		ruby-yajl
 Version:	1.1.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages
 Source0:	%{rbname}-%{version}.gem
@@ -11,10 +11,12 @@ URL:		http://rdoc.info/github/brianmario/yajl-ruby
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
 BuildRequires:	ruby-devel
-Requires:	ruby-activesupport
-Requires:	ruby-json
-Requires:	ruby-rake-compiler >= 0.7.5
-Requires:	ruby-rspec >= 2.0.0
+%if %{with tests}
+BuildRequires:	ruby-activesupport
+BuildRequires:	ruby-json
+BuildRequires:	ruby-rake-compiler >= 0.7.5
+BuildRequires:	ruby-rspec >= 2.0.0
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
