@@ -1,15 +1,19 @@
+#
+# Conditional build:
+%bcond_with	tests		# build without tests
+
 %define rbname yajl-ruby
 Summary:	Ruby C bindings to the excellent Yajl JSON stream-based parser library
 Name:		ruby-yajl
 Version:	1.1.0
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Languages
-Source0:	%{rbname}-%{version}.gem
+Source0:	http://rubygems.org/downloads/%{rbname}-%{version}.gem
 # Source0-md5:	5f35141b89be7da3b279b65ea0f3c0c2
 URL:		http://rdoc.info/github/brianmario/yajl-ruby
 BuildRequires:	rpm-rubyprov
-BuildRequires:	rpmbuild(macros) >= 1.656
+BuildRequires:	rpmbuild(macros) >= 1.665
 BuildRequires:	ruby-devel
 %if %{with tests}
 BuildRequires:	ruby-activesupport
@@ -26,6 +30,8 @@ C binding to the excellent YAJL JSON parsing and generation library.
 %setup -q
 
 %build
+%__gem_helper spec
+
 cd ext/yajl
 %{__ruby} extconf.rb
 %{__make} V=1 \
@@ -35,9 +41,11 @@ cd ext/yajl
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_vendorarchdir}/yajl}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_vendorarchdir}/yajl,%{ruby_specdir}}
 cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
 install -p ext/yajl/yajl.so $RPM_BUILD_ROOT%{ruby_vendorarchdir}/yajl/yajl.so
+
+cp -p %{rbname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -49,3 +57,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{ruby_vendorarchdir}/yajl/yajl.so
 %{ruby_vendorlibdir}/yajl.rb
 %{ruby_vendorlibdir}/yajl
+%{ruby_specdir}/%{rbname}-%{version}.gemspec
