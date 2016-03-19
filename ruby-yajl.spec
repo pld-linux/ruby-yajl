@@ -8,7 +8,7 @@
 Summary:	Ruby C bindings to the excellent Yajl JSON stream-based parser library
 Name:		ruby-yajl
 Version:	1.2.1
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{rbname}-%{version}.gem
